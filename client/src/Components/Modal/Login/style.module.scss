@@ -1,0 +1,84 @@
+.modal {
+  z-index: 9999;
+  width: 100vw;
+  height: 100vh;
+  background: #4646462a;
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  .mdContainer {
+    background: #fff;
+    width: 330px;
+    height: 100%;
+    animation: openContainer 0.5s;
+    position: relative;
+
+    .loginHeader {
+      border-bottom: 1px solid #a7a7a770;
+
+      h1 {
+        padding: 0.6rem 1rem;
+        font-size: 1.8rem;
+      }
+    }
+
+    .loginForm {
+      display: flex;
+      flex-direction: column;
+      padding: 1rem;
+      gap: 1rem;
+
+      label {
+        display: block;
+      }
+
+      input {
+        padding: 0.3rem 0.9rem;
+        border: 1px solid #a7a7a77f;
+        font-size: 1.08rem;
+        width: 100%;
+        outline: none;
+        border-radius: 6px;
+
+        &:focus {
+          border: 1px solid #1070fe;
+        }
+      }
+
+      button {
+        background: #1070fe;
+        border: none;
+        border-radius: 50rem;
+        color: #fff;
+        padding: 0.5rem 0;
+        font-size: 1.1rem;
+      }
+    }
+    .optionCreate {
+      padding: 0.4rem 1rem;
+      color: #1d1d1d96;
+    }
+
+    .closeBtn {
+      position: absolute;
+      top: (calc(0px + 1.5rem));
+      right: (calc(0px + 1rem));
+      cursor: pointer;
+      transition: 0.4s;
+
+      &:hover {
+        transform: rotate(360deg);
+      }
+    }
+  }
+}
+
+@keyframes openContainer {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
