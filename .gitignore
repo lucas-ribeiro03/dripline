@@ -1,5 +1,7 @@
 # Node modules
 node_modules/
+client/node_modules/
+server/node_modules/
 
 # Logs
 logs/
@@ -9,11 +11,15 @@ yarn-debug.log*
 yarn-error.log*
 
 # Env files
-.env
+**/.env
 
 # Build outputs
 dist/
 build/
+client/dist/
+client/build/
+server/dist/
+server/build/
 
 # OS files
 .DS_Store
@@ -22,7 +28,7 @@ Thumbs.db
 # Editor settings
 .vscode/
 
-# React
+# React envs
 *.env.local
 *.env.development
 *.env.test
