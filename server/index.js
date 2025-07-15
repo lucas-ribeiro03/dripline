@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 const express = require("express");
 const app = express();
 const mysql = require("mysql2");
@@ -12,5 +14,5 @@ app.use("/img", express.static("public/img"));
 app.use("/anuncio", anuncioRoutes);
 
 db.sequelize.sync().then(() => {
-  app.listen(3001, {});
+  app.listen(process.env.PORT, {});
 });
