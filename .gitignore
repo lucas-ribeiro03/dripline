@@ -18,3 +18,12 @@ build/
 # OS files
 .DS_Store
 Thumbs.db
+
+# Editor settings
+.vscode/
+
+# React
+*.env.local
+*.env.development
+*.env.test
+*.env.production
