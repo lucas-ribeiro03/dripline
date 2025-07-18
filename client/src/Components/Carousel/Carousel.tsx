@@ -38,7 +38,6 @@ const Carousel: React.FC<CarouselProps> = ({ title }) => {
   const prevButton = useRef<HTMLDivElement>(null);
   const nextButton = useRef<HTMLDivElement>(null);
   const itemsPerPage = 6;
-  const totalPages = Math.ceil(cards.length / itemsPerPage);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -47,6 +46,11 @@ const Carousel: React.FC<CarouselProps> = ({ title }) => {
 
     return () => clearInterval(interval);
   }, []);
+
+  const filteredCards = cards.filter(
+    (product) => product.categoria.nome === title
+  );
+  const totalPages = Math.ceil(filteredCards.length / itemsPerPage);
 
   const updateCarousel = () => {
     const offset = currentPage * itemsPerPage * (100 / 6);
@@ -57,7 +61,7 @@ const Carousel: React.FC<CarouselProps> = ({ title }) => {
     }
 
     if (
-      currentPage === Math.ceil(cards.length / itemsPerPage - 1) &&
+      currentPage === Math.ceil(filteredCards.length / itemsPerPage - 1) &&
       nextButton.current
     ) {
       nextButton.current.style.display = "none";
@@ -65,10 +69,13 @@ const Carousel: React.FC<CarouselProps> = ({ title }) => {
       nextButton.current.style.display = "flex";
     }
 
-    if (cards.length % itemsPerPage !== 0 && currentPage === totalPages - 1) {
+    if (
+      filteredCards.length % itemsPerPage !== 0 &&
+      currentPage === totalPages - 1
+    ) {
       const alternativeOffset =
         (currentPage - 1) * itemsPerPage * (100 / 6) +
-        (cards.length % itemsPerPage) * (100 / 6);
+        (filteredCards.length % itemsPerPage) * (100 / 6);
       if (container.current) {
         container.current.style.transform = `translateX(-${alternativeOffset}%)`;
       }
