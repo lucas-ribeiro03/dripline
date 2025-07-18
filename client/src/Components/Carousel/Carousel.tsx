@@ -8,7 +8,6 @@ import { Produto } from "../../data/Produto";
 
 interface CarouselProps {
   title: string;
-  timer: string;
 }
 
 const Carousel: React.FC<CarouselProps> = ({ title }) => {
