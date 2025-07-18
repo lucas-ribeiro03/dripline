@@ -90,7 +90,7 @@ const Carousel: React.FC<CarouselProps> = ({ title }) => {
     <div className={styles.carouselBody}>
       <section className={styles.productsCarousel}>
         <div className={styles.carouselHeader}>
-          <h1>CONJUNTOS DE VERÃO</h1>
+          <h1>{title}</h1>
           <span>
             TERMINA EM:{" "}
             {`${timeLeft.horas}:${timeLeft.minutos}:${timeLeft.segundos}`}
