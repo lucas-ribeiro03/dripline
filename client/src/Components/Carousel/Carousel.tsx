@@ -80,7 +80,7 @@ const Carousel: React.FC<CarouselProps> = ({ title }) => {
   };
 
   const getCards = async () => {
-    const response = await axios.get("http://localhost:3001/anuncio");
+    const response = await axios.get("http://localhost:3001/produtos");
     setCards(response.data);
   };
 
@@ -117,11 +117,14 @@ const Carousel: React.FC<CarouselProps> = ({ title }) => {
 
           <div className={styles.carouselViewport}>
             <div ref={container} className={styles.carouselItems}>
-              {cards.map((card, i) => (
-                <div key={i} className={styles.item}>
-                  <Card card={card} />
-                </div>
-              ))}
+              {cards.map(
+                (card, i) =>
+                  card.categoria.nome === title && (
+                    <div key={i} className={styles.item}>
+                      <Card card={card} />
+                    </div>
+                  )
+              )}
             </div>
           </div>
           <div
