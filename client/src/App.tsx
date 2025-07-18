@@ -10,8 +10,8 @@ const App = () => {
 
   const getCarouselTitle = async () => {
     const response = await axios.get("http://localhost:3001/produtos");
+    const categoriasComProdutos: string[] = [];
     response.data.map((produto: Produto) => {
-      const categoriasComProdutos: string[] = [];
       if (categoriasComProdutos.includes(produto.categoria.nome)) {
         return;
       } else {
