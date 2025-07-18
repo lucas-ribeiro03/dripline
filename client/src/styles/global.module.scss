@@ -22,3 +22,9 @@ a:hover {
   align-items: center;
   overflow-x: hidden;
 }
+
+.carousels {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}

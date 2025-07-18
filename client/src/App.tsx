@@ -28,11 +28,11 @@ const App = () => {
   return (
     <div className={styles.global}>
       <Navbar />
-      {categorias.map((categoria, i) => (
-        <div key={i} className={styles.carousels}>
-          <Carousel title={categoria} />
-        </div>
-      ))}
+      <div className={styles.carousels}>
+        {categorias.map((categoria, i) => (
+          <Carousel key={i} title={categoria} />
+        ))}
+      </div>
     </div>
   );
 };
