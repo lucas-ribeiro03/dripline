@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import axios from "axios";
 import styles from "./style.module.scss";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
