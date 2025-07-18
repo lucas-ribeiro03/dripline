@@ -113,8 +113,8 @@ const Carousel: React.FC<CarouselProps> = ({ title }) => {
 
           <div className={styles.carouselViewport}>
             <div ref={container} className={styles.carouselItems}>
-              {cards.map((card) => (
-                <div className={styles.item}>
+              {cards.map((card, i) => (
+                <div key={i} className={styles.item}>
                   <Card card={card} />
                 </div>
               ))}
