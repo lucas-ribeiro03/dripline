@@ -12,6 +12,7 @@ interface CarouselProps {
 
 const Carousel: React.FC<CarouselProps> = ({ title }) => {
   const [cards, setCards] = useState<Produto[]>([]);
+  const [currentPage, setCurrentPage] = useState(0);
 
   const getTimeUntilMidnight = () => {
     const now = new Date();
@@ -37,7 +38,6 @@ const Carousel: React.FC<CarouselProps> = ({ title }) => {
   const prevButton = useRef<HTMLDivElement>(null);
   const nextButton = useRef<HTMLDivElement>(null);
   const itemsPerPage = 6;
-  let currentPage = 0;
   const totalPages = Math.ceil(cards.length / itemsPerPage);
 
   useEffect(() => {
@@ -69,11 +69,13 @@ const Carousel: React.FC<CarouselProps> = ({ title }) => {
       const alternativeOffset =
         (currentPage - 1) * itemsPerPage * (100 / 6) +
         (cards.length % itemsPerPage) * (100 / 6);
-      if (container.current)
+      if (container.current) {
         container.current.style.transform = `translateX(-${alternativeOffset}%)`;
+      }
     } else {
-      if (container.current)
+      if (container.current) {
         container.current.style.transform = `translateX(-${offset}%)`;
+      }
     }
   };
 
@@ -86,6 +88,10 @@ const Carousel: React.FC<CarouselProps> = ({ title }) => {
     getCards();
     updateCarousel();
   }, []);
+
+  useEffect(() => {
+    updateCarousel();
+  }, [currentPage]);
   return (
     <div className={styles.carouselBody}>
       <section className={styles.productsCarousel}>
@@ -102,9 +108,7 @@ const Carousel: React.FC<CarouselProps> = ({ title }) => {
             className={`${styles.actionButton}  ${styles.previous}`}
             onClick={() => {
               if (currentPage > 0) {
-                currentPage--;
-
-                updateCarousel();
+                setCurrentPage(currentPage - 1);
               }
             }}
           >
@@ -124,9 +128,8 @@ const Carousel: React.FC<CarouselProps> = ({ title }) => {
             ref={nextButton}
             className={`${styles.actionButton} ${styles.next}`}
             onClick={() => {
-              if (currentPage < totalPages - 1) {
-                currentPage++;
-                updateCarousel();
+              if (currentPage < totalPages) {
+                setCurrentPage(currentPage + 1);
               }
             }}
           >
