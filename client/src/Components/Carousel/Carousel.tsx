@@ -1,18 +1,18 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import axios from "axios";
 import styles from "./style.module.scss";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import Card from "../Card/Card";
-import { Produto } from "../../data/Produto";
+import { ProdutoContext } from "../../contexts/ProdutosContext";
 
 interface CarouselProps {
   title: string;
 }
 
 const Carousel: React.FC<CarouselProps> = ({ title }) => {
-  const [cards, setCards] = useState<Produto[]>([]);
   const [currentPage, setCurrentPage] = useState(0);
+
+  const { products } = useContext(ProdutoContext);
 
   const getTimeUntilMidnight = () => {
     const now = new Date();
@@ -47,7 +47,7 @@ const Carousel: React.FC<CarouselProps> = ({ title }) => {
     return () => clearInterval(interval);
   }, []);
 
-  const filteredCards = cards.filter(
+  const filteredCards = products.filter(
     (product) => product.categoria.nome === title
   );
   const totalPages = Math.ceil(filteredCards.length / itemsPerPage);
@@ -86,14 +86,9 @@ const Carousel: React.FC<CarouselProps> = ({ title }) => {
     }
   };
 
-  const getCards = async () => {
-    const response = await axios.get("http://localhost:3001/produtos");
-    setCards(response.data);
-  };
-
   useEffect(() => {
-    getCards();
     updateCarousel();
+    console.log(products);
   }, []);
 
   useEffect(() => {
@@ -124,11 +119,11 @@ const Carousel: React.FC<CarouselProps> = ({ title }) => {
 
           <div className={styles.carouselViewport}>
             <div ref={container} className={styles.carouselItems}>
-              {cards.map(
-                (card, i) =>
-                  card.categoria.nome === title && (
+              {products.map(
+                (product, i) =>
+                  product.categoria.nome === title && (
                     <div key={i} className={styles.item}>
-                      <Card card={card} />
+                      <Card card={product} />
                     </div>
                   )
               )}

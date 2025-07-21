@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { Produto } from "./data/Produto";
 import { Provider } from "react-redux";
 import { store } from "./redux/store";
+import { ProdutosProvider } from "./contexts/ProdutosContext";
 
 const App = () => {
   const [categorias, setCategorias] = useState<string[]>([]);
@@ -29,14 +30,16 @@ const App = () => {
   }, []);
   return (
     <Provider store={store}>
-      <div className={styles.global}>
-        <Navbar />
-        <div className={styles.carousels}>
-          {categorias.map((categoria, i) => (
-            <Carousel key={i} title={categoria} />
-          ))}
+      <ProdutosProvider>
+        <div className={styles.global}>
+          <Navbar />
+          <div className={styles.carousels}>
+            {categorias.map((categoria, i) => (
+              <Carousel key={i} title={categoria} />
+            ))}
+          </div>
         </div>
-      </div>
+      </ProdutosProvider>
     </Provider>
   );
 };
