@@ -4,6 +4,8 @@ import Navbar from "./Components/Navbar/Navbar";
 import styles from "./styles/global.module.scss";
 import { useEffect, useState } from "react";
 import { Produto } from "./data/Produto";
+import { Provider } from "react-redux";
+import { store } from "./redux/store";
 
 const App = () => {
   const [categorias, setCategorias] = useState<string[]>([]);
@@ -26,14 +28,16 @@ const App = () => {
     getCarouselTitle();
   }, []);
   return (
-    <div className={styles.global}>
-      <Navbar />
-      <div className={styles.carousels}>
-        {categorias.map((categoria, i) => (
-          <Carousel key={i} title={categoria} />
-        ))}
+    <Provider store={store}>
+      <div className={styles.global}>
+        <Navbar />
+        <div className={styles.carousels}>
+          {categorias.map((categoria, i) => (
+            <Carousel key={i} title={categoria} />
+          ))}
+        </div>
       </div>
-    </div>
+    </Provider>
   );
 };
 
