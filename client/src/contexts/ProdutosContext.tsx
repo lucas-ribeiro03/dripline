@@ -5,7 +5,7 @@ import axios from "axios";
 
 interface ProdutosContextData {
   products: Produto[];
-  setProducts: React.Dispatch<React.SetStateAction<Produto[] | null>>;
+  setProducts: React.Dispatch<React.SetStateAction<Produto[]>>;
 }
 
 export const ProdutoContext = createContext({} as ProdutosContextData);
@@ -16,7 +16,7 @@ interface ProdutosProviderProps {
 export const ProdutosProvider: React.FC<ProdutosProviderProps> = ({
   children,
 }) => {
-  const [products, setProducts] = useState<Produto[] | null>([]);
+  const [products, setProducts] = useState<Produto[]>([]);
 
   useEffect(() => {
     const getProducts = async () => {
