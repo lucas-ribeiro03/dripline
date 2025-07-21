@@ -12,7 +12,7 @@ interface CarouselProps {
 const Carousel: React.FC<CarouselProps> = ({ title }) => {
   const [currentPage, setCurrentPage] = useState(0);
 
-  const { products } = useContext(ProdutoContext);
+  const { products, getProduct } = useContext(ProdutoContext);
 
   const getTimeUntilMidnight = () => {
     const now = new Date();
@@ -123,7 +123,12 @@ const Carousel: React.FC<CarouselProps> = ({ title }) => {
                 (product, i) =>
                   product.categoria.nome === title && (
                     <div key={i} className={styles.item}>
-                      <Card card={product} />
+                      <Card
+                        card={product}
+                        seeProduct={() => {
+                          getProduct(product.id);
+                        }}
+                      />
                     </div>
                   )
               )}

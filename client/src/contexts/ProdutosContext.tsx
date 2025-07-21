@@ -6,6 +6,7 @@ import axios from "axios";
 interface ProdutosContextData {
   products: Produto[];
   setProducts: React.Dispatch<React.SetStateAction<Produto[]>>;
+  getProduct: (id: number) => Promise<void>;
 }
 
 export const ProdutoContext = createContext({} as ProdutosContextData);
@@ -27,8 +28,13 @@ export const ProdutosProvider: React.FC<ProdutosProviderProps> = ({
     getProducts();
   });
 
+  const getProduct = async (id: number) => {
+    const response = await axios.get(`http://localhost:3001/produtos/${id}`);
+    console.log(response);
+  };
+
   return (
-    <ProdutoContext.Provider value={{ products, setProducts }}>
+    <ProdutoContext.Provider value={{ products, setProducts, getProduct }}>
       {children}
     </ProdutoContext.Provider>
   );

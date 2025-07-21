@@ -3,9 +3,10 @@ import styles from "./style.module.scss";
 
 interface CardProps {
   card: Produto;
+  seeProduct: () => void;
 }
 
-const Card: React.FC<CardProps> = ({ card }) => {
+const Card: React.FC<CardProps> = ({ card, seeProduct }) => {
   return (
     <div>
       <div className={styles.card}>
@@ -20,7 +21,7 @@ const Card: React.FC<CardProps> = ({ card }) => {
           <span className={styles.precoBase}>{card.preco_base}</span>
         </div>
         <span className={styles.parcela}>ou 12x de {""}</span>
-        <button>Ver produto</button>
+        <button onClick={seeProduct}>Ver produto</button>
       </div>
     </div>
   );
