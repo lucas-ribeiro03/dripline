@@ -9,4 +9,10 @@ router.get("/", async (req, res) => {
   return res.json(response);
 });
 
+router.get("/:id", async (req, res) => {
+  const id = req.params;
+  const produto = await Produto.findOne({ where: id });
+  return res.json(produto);
+});
+
 module.exports = router;

@@ -7,12 +7,13 @@ import { ProdutoContext } from "../../contexts/ProdutosContext";
 
 interface CarouselProps {
   title: string;
+  onProductClick: () => void;
 }
 
-const Carousel: React.FC<CarouselProps> = ({ title }) => {
+const Carousel: React.FC<CarouselProps> = ({ title, onProductClick }) => {
   const [currentPage, setCurrentPage] = useState(0);
 
-  const { products, getProduct } = useContext(ProdutoContext);
+  const { products } = useContext(ProdutoContext);
 
   const getTimeUntilMidnight = () => {
     const now = new Date();
@@ -88,7 +89,6 @@ const Carousel: React.FC<CarouselProps> = ({ title }) => {
 
   useEffect(() => {
     updateCarousel();
-    console.log(products);
   }, []);
 
   useEffect(() => {
@@ -126,7 +126,12 @@ const Carousel: React.FC<CarouselProps> = ({ title }) => {
                       <Card
                         card={product}
                         seeProduct={() => {
-                          getProduct(product.id);
+                          localStorage.setItem(
+                            "produto",
+                            JSON.stringify(product.id)
+                          );
+                          onProductClick();
+                          console.log("clicou");
                         }}
                       />
                     </div>

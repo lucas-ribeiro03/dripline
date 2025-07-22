@@ -5,9 +5,11 @@ import styles from "./style.module.scss";
 import Carousel from "../../Components/Carousel/Carousel";
 import Navbar from "../../Components/Navbar/Navbar";
 import { Produto } from "../../data/Produto";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
   const [categorias, setCategorias] = useState<string[]>([]);
+  const navigate = useNavigate();
 
   const getCarouselTitle = async () => {
     const response = await axios.get("http://localhost:3001/produtos");
@@ -31,7 +33,13 @@ const Home = () => {
       <Navbar />
       <div className={styles.carousels}>
         {categorias.map((categoria, i) => (
-          <Carousel key={i} title={categoria} />
+          <Carousel
+            key={i}
+            title={categoria}
+            onProductClick={() =>
+              navigate(`/produto/${localStorage.getItem("produto")}`)
+            }
+          />
         ))}
       </div>
     </div>

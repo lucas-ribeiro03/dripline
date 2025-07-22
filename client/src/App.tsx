@@ -4,6 +4,7 @@ import { store } from "./redux/store";
 import { ProdutosProvider } from "./contexts/ProdutosContext";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./Pages/Home/Home";
+import Produto from "./Pages/Produto/Produto";
 
 const App = () => {
   return (
@@ -13,6 +14,7 @@ const App = () => {
           <div className={styles.global}>
             <Routes>
               <Route path="/" element={<Home />} />
+              <Route path="/produto/:id" element={<Produto />} />
             </Routes>
           </div>
         </ProdutosProvider>
