@@ -1,6 +1,15 @@
+import { useContext, useEffect } from "react";
 import styles from "./style.module.scss";
+import { ProdutoContext } from "../../contexts/ProdutosContext";
+import { useParams } from "react-router-dom";
 
 const Produto = () => {
+  const { getProduct, product } = useContext(ProdutoContext);
+  const { id } = useParams();
+
+  useEffect(() => {
+    if (id) getProduct(Number(id));
+  }, []);
   return (
     <div>
       <div className={styles.produtoPageBody}>

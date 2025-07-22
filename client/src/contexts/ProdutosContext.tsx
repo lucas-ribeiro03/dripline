@@ -5,6 +5,8 @@ import axios from "axios";
 
 interface ProdutosContextData {
   products: Produto[];
+  product: Produto;
+  setProduct: React.Dispatch<React.SetStateAction<Produto>>;
   setProducts: React.Dispatch<React.SetStateAction<Produto[]>>;
   getProduct: (id: number) => Promise<void>;
 }
@@ -18,6 +20,7 @@ export const ProdutosProvider: React.FC<ProdutosProviderProps> = ({
   children,
 }) => {
   const [products, setProducts] = useState<Produto[]>([]);
+  const [product, setProduct] = useState<Produto>({} as Produto);
 
   useEffect(() => {
     const getProducts = async () => {
@@ -26,15 +29,18 @@ export const ProdutosProvider: React.FC<ProdutosProviderProps> = ({
     };
 
     getProducts();
-  });
+  }, []);
 
   const getProduct = async (id: number) => {
     const response = await axios.get(`http://localhost:3001/produtos/${id}`);
-    console.log(response);
+    setProduct(response.data);
+    console.log(response.data);
   };
 
   return (
-    <ProdutoContext.Provider value={{ products, setProducts, getProduct }}>
+    <ProdutoContext.Provider
+      value={{ products, setProducts, getProduct, product, setProduct }}
+    >
       {children}
     </ProdutoContext.Provider>
   );
