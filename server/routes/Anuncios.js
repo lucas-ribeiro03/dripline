@@ -2,8 +2,9 @@ const express = require("express");
 const router = express.Router();
 const { Anuncio, Produto } = require("../models");
 
-router.get("/", async (req, res) => {
-  const response = await Produto.findAll();
+router.get("/:id", async (req, res) => {
+  const { id } = req.params;
+  const response = await Anuncio.findOne({ where: { produto_id: id } });
   return res.json(response);
 });
 
