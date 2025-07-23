@@ -3,15 +3,6 @@ const { sequelize } = require(".");
 
 module.exports = (sequelize, DataTypes) => {
   const Anuncio = sequelize.define("Anuncio", {
-    tamanho_tenis: {
-      type: DataTypes.INTEGER,
-      allowNull: true,
-    },
-    tamanho_roupa: {
-      type: DataTypes.STRING,
-      allowNull: true,
-    },
-
     preco: {
       type: DataTypes.DECIMAL(10, 2),
       allowNull: false,
