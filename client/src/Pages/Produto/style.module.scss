@@ -1,0 +1,145 @@
+.produtoPageBody {
+  display: grid;
+  grid-template-areas: "box1 box2";
+  gap: 3rem;
+  padding: 2rem;
+
+  .produtoImagens,
+  .produtoInfo,
+  .produtoDescricao {
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 1rem;
+  }
+
+  .produtoImagens {
+    display: grid;
+    grid-template-areas: "box1 box3" "box2 box3";
+    align-items: center;
+    gap: 1.5rem;
+
+    .miniaturaPrimaria img,
+    .miniaturaSecundaria img {
+      width: 60px;
+      height: 60px;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    .imagem img {
+      border-radius: 10px;
+      width: 100%;
+    }
+  }
+
+  .produtoInfo {
+    display: flex;
+    flex-direction: column;
+    max-width: 500px;
+    justify-content: space-between;
+
+    .produtoNome {
+      font-size: 1.2rem;
+      font-weight: 700;
+    }
+
+    .precoBase {
+      text-decoration: line-through;
+      font-size: 0.8rem;
+      color: #ccc;
+    }
+
+    .precoPromocional {
+      font-size: 1.19rem;
+      font-weight: 400;
+    }
+
+    .precoParcelado strong {
+      font-weight: bolder;
+    }
+
+    .tamanhosRoupas {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+
+      .tamanhos {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        span {
+          border: 1px solid #ccc;
+          border-radius: 10px;
+          padding: 0.5rem 1rem;
+          cursor: pointer;
+        }
+      }
+    }
+
+    .tamanhosCalcados {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+      .tamanhos {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        span {
+          border: 1px solid #ccc;
+          border-radius: 10px;
+          padding: 0.5rem 1rem;
+          cursor: pointer;
+        }
+      }
+    }
+
+    .quantityForm {
+      display: flex;
+      gap: 1rem;
+
+      .inputBox {
+        position: relative;
+        gap: 1rem;
+        display: flex;
+
+        input {
+          text-align: center;
+          padding: 0.5rem 0.8rem;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+          outline: none;
+          width: 100px;
+          font-size: 1.15rem;
+        }
+
+        svg {
+          position: absolute;
+          cursor: pointer;
+          color: #ccc;
+        }
+
+        .minusBtn {
+          left: 3px;
+          top: 50%;
+          transform: translateY(-50%);
+        }
+
+        .plusBtn {
+          right: 3px;
+          top: 50%;
+          transform: translateY(-50%);
+        }
+      }
+
+      button {
+        border: none;
+        background: #05164b;
+        color: #ffff;
+        padding: 1rem;
+        font-weight: 600;
+        border-radius: 10px;
+        font-size: 1.2rem;
+      }
+    }
+  }
+}

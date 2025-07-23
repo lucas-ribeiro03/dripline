@@ -3,36 +3,34 @@ import { useContext, useEffect, useState } from "react";
 import styles from "./style.module.scss";
 import { ProdutoContext } from "../../contexts/ProdutosContext";
 import { useParams } from "react-router-dom";
-import axios from "axios";
+import { AnuncioContext } from "../../contexts/AnuncioContext";
+import { FaPlus, FaMinus } from "react-icons/fa";
 
 const Produto = () => {
-  const { getProduct, product, setProduct } = useContext(ProdutoContext);
+  const { getProduct, product } = useContext(ProdutoContext);
+  const { getAnuncio, anuncio } = useContext(AnuncioContext);
   const { id } = useParams();
   const [activeImage, setActiveImage] = useState("");
+  const [quantidade, setQuantidade] = useState(1);
   const tamanhosTenis = [37, 38, 39, 40, 41, 42, 43, 44, 45];
   const tamanhosRoupas = ["P", "M", "G", "GG", "XG"];
 
-  const getAnuncio = async (produto_id: number) => {
-    const response = await axios.get(
-      `http://localhost:3001/anuncio/${produto_id}`
-    );
-
-    setProduct({ ...product, ...response.data });
-  };
-
   useEffect(() => {
-    if (id) getProduct(Number(id));
-    getAnuncio(Number(id));
+    if (id) {
+      getAnuncio(Number(id));
+      getProduct(Number(id));
+    }
   }, []);
 
   useEffect(() => {
     setActiveImage(product.img_principal);
-  }, [product.img_principal]);
+  }, [product]);
   return (
     <div>
       <div className={styles.produtoPageBody}>
-        <div className={styles.produtoImagens}>
+        <div className={styles.produtoImagens} style={{ gridArea: "box1" }}>
           <div
+            style={{ gridArea: "box1" }}
             onClick={() => setActiveImage(product.img_principal)}
             className={styles.miniaturaPrimaria}
           >
@@ -43,6 +41,7 @@ const Produto = () => {
           </div>
           {product.img_secundaria && (
             <div
+              style={{ gridArea: "box2" }}
               onClick={() => {
                 if (product.img_secundaria)
                   setActiveImage(product.img_secundaria);
@@ -56,37 +55,54 @@ const Produto = () => {
             </div>
           )}
 
-          <div className={styles.imagem}>
+          <div className={styles.imagem} style={{ gridArea: "box3" }}>
             <img src={`http://${activeImage}`} alt="imagem ativa" />
           </div>
         </div>
-        <div className={styles.produtoInfo}>
+        <div className={styles.produtoInfo} style={{ gridArea: "box2" }}>
           <div className={styles.produtoNome}>{product.nome}</div>
           <div className={styles.precoBase}>R${product.preco_base}</div>
-          <div className={styles.precoPromocional}>R${product.preco}</div>
+          <div className={styles.precoPromocional}>R${anuncio.preco}</div>
           <div className={styles.precoParcelado}>
             <span>
               ou <strong>12x</strong> de{" "}
-              <strong>R${(product.preco / 12).toFixed(2)}</strong>
+              <strong>R${(anuncio.preco / 12).toFixed(2)}</strong>
             </span>
           </div>
           <div className={styles.formaPgto}></div>
           <div className={styles.tamanhosRoupas}>
-            {tamanhosRoupas.map((tamanho) => (
-              <span>{tamanho}</span>
-            ))}
-          </div>
-          {product.tipo_produto === "kit completo" && (
-            <div className={styles.tamanhosCalcados}>
-              {tamanhosTenis.map((tamanho) => (
+            <p>Tamanho: </p>
+            <div className={styles.tamanhos}>
+              {tamanhosRoupas.map((tamanho) => (
                 <span key={tamanho}>{tamanho}</span>
               ))}
             </div>
-          )}
-          <div className={styles.inputBox}>
-            <input type="number" name="quantidade" id="quantidade" value={1} />
-            <button>COMPRAR AGORA</button>
           </div>
+          {product.tipo_produto === "kit completo" && (
+            <div className={styles.tamanhosCalcados}>
+              <p>Tamanho Calçado:</p>
+              <div className={styles.tamanhos}>
+                {tamanhosTenis.map((tamanho) => (
+                  <span key={tamanho}>{tamanho}</span>
+                ))}
+              </div>
+            </div>
+          )}
+          <form className={styles.quantityForm}>
+            <div className={styles.inputBox}>
+              <FaMinus className={styles.minusBtn} />
+              <input
+                type="text"
+                readOnly
+                name="quantidade"
+                id="quantidade"
+                value={quantidade}
+              />
+              <FaPlus className={styles.plusBtn} />
+            </div>
+
+            <button>COMPRAR AGORA</button>
+          </form>
         </div>
         <div className={styles.produtoDescricao}></div>
       </div>
