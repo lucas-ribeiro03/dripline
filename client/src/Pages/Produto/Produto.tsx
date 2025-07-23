@@ -90,7 +90,12 @@ const Produto = () => {
           )}
           <form className={styles.quantityForm}>
             <div className={styles.inputBox}>
-              <FaMinus className={styles.minusBtn} />
+              <FaMinus
+                onClick={() =>
+                  quantidade > 0 ? setQuantidade(quantidade - 1) : null
+                }
+                className={styles.minusBtn}
+              />
               <input
                 type="text"
                 readOnly
@@ -98,7 +103,10 @@ const Produto = () => {
                 id="quantidade"
                 value={quantidade}
               />
-              <FaPlus className={styles.plusBtn} />
+              <FaPlus
+                className={styles.plusBtn}
+                onClick={() => setQuantidade(quantidade + 1)}
+              />
             </div>
 
             <button>COMPRAR AGORA</button>
