@@ -5,19 +5,22 @@ import { ProdutosProvider } from "./contexts/ProdutosContext";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./Pages/Home/Home";
 import Produto from "./Pages/Produto/Produto";
+import { AnuncioProvider } from "./contexts/AnuncioContext";
 
 const App = () => {
   return (
     <Provider store={store}>
       <Router>
-        <ProdutosProvider>
-          <div className={styles.global}>
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/produto/:id" element={<Produto />} />
-            </Routes>
-          </div>
-        </ProdutosProvider>
+        <AnuncioProvider>
+          <ProdutosProvider>
+            <div className={styles.global}>
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/produto/:id" element={<Produto />} />
+              </Routes>
+            </div>
+          </ProdutosProvider>
+        </AnuncioProvider>
       </Router>
     </Provider>
   );
