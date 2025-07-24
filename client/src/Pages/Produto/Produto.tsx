@@ -5,6 +5,8 @@ import { ProdutoContext } from "../../contexts/ProdutosContext";
 import { useParams } from "react-router-dom";
 import { AnuncioContext } from "../../contexts/AnuncioContext";
 import { FaPlus, FaMinus } from "react-icons/fa";
+import { MdOutlinePayment } from "react-icons/md";
+import Navbar from "../../Components/Navbar/Navbar";
 
 const Produto = () => {
   const { getProduct, product } = useContext(ProdutoContext);
@@ -27,6 +29,7 @@ const Produto = () => {
   }, [product]);
   return (
     <div>
+      <Navbar />
       <div className={styles.produtoPageBody}>
         <div className={styles.produtoImagens} style={{ gridArea: "box1" }}>
           <div
@@ -69,7 +72,11 @@ const Produto = () => {
               <strong>R${(anuncio.preco / 12).toFixed(2)}</strong>
             </span>
           </div>
-          <div className={styles.formaPgto}></div>
+          <div className={styles.formaPgto}>
+            <span>
+              <MdOutlinePayment /> Formas de pagamento
+            </span>
+          </div>
           <div className={styles.tamanhosRoupas}>
             <p>Tamanho: </p>
             <div className={styles.tamanhos}>
