@@ -4,4 +4,5 @@ export interface Carrinho {
   tamanho_roupa: string;
   tamanho_tenis?: number;
   quantidade: number;
+  produto_id: number;
 }
