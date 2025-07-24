@@ -22,3 +22,5 @@ export const cartSlice = createSlice({
     },
   },
 });
+
+export const { addProduto } = cartSlice.actions;
