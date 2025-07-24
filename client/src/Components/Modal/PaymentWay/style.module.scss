@@ -1,0 +1,67 @@
+.modalBackground {
+  z-index: 9999;
+  width: 100vw;
+  height: 100vh;
+  background: #4646462a;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .modalContainer {
+    background: #fff;
+    position: relative;
+    width: fit-content;
+    border-radius: 10px;
+    padding: 2rem 2.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+
+    .options {
+      margin-top: 0.85rem;
+      display: flex;
+      text-align: center;
+      gap: 2rem;
+      font-size: 1.3rem;
+      cursor: pointer;
+    }
+    .parcelas {
+      display: flex;
+      flex-direction: column;
+      margin-top: 1.5rem;
+      .parcela {
+        display: flex;
+        justify-content: space-between;
+        gap: 2rem;
+        padding: 0.45rem 1.8rem;
+        border-radius: 5px;
+        font-size: 0.8rem;
+      }
+    }
+
+    .information {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 1rem;
+      gap: 1rem;
+    }
+
+    .closeBtn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      color: #000;
+      cursor: pointer;
+      transition: 0.15s;
+
+      &:hover {
+        color: #00c3ee;
+      }
+    }
+  }
+}
