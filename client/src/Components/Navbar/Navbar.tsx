@@ -14,7 +14,9 @@ const Navbar = () => {
       )}
       <section className={styles.navbarSection}>
         <header className={styles.navbarHeader}>
-          <img src={logo} height={150} alt="logo" />
+          <a href="/">
+            <img src={logo} height={150} alt="logo" />
+          </a>
           <form className={styles.searchForm}>
             <input type="text" placeholder="Pesquisar..." />
             <button>Buscar</button>
@@ -54,15 +56,33 @@ const Navbar = () => {
         <nav className={styles.navbar}>
           <div className={styles.navbarContainer}>
             <ul>
-              <li>KITS DRI-FIT</li>
-              <li>CONJUNTOS DE INVERNO</li>
-              <li>CONJUNTOS INVERNO TIMES</li>
-              <li>CONJUNTOS DE VERÃO</li>
-              <li>JAQUETAS</li>
-              <li>TÊNIS</li>
-              <li>CHINELOS</li>
-              <li>PERFUMES</li>
-              <li>JOIAS</li>
+              <a href="">
+                <li>KITS DRI-FIT</li>
+              </a>
+              <a href="">
+                <li>CONJUNTOS DE INVERNO</li>
+              </a>
+              <a href="">
+                <li>CONJUNTOS INVERNO TIMES</li>
+              </a>
+              <a href="">
+                <li>CONJUNTOS DE VERÃO</li>
+              </a>
+              <a href="">
+                <li>JAQUETAS</li>
+              </a>
+              <a href="">
+                <li>TÊNIS</li>
+              </a>
+              <a href="">
+                <li>CHINELOS</li>
+              </a>
+              <a href="">
+                <li>PERFUMES</li>
+              </a>
+              <a href="">
+                <li>JOIAS</li>
+              </a>
             </ul>
           </div>
         </nav>
