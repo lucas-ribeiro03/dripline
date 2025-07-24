@@ -1,4 +1,4 @@
-import { Produto } from "../../data/Produto";
+import { Produto } from "../../types/Produto";
 import styles from "./style.module.scss";
 
 interface CardProps {

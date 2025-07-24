@@ -1,7 +1,7 @@
 /* eslint-disable react-refresh/only-export-components */
 import { createContext, useState } from "react";
 import axios from "axios";
-import { Anuncio } from "../data/Anuncio";
+import { Anuncio } from "../types/Anuncio";
 
 interface AnuncioContextData {
   anuncio: Anuncio;

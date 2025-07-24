@@ -6,7 +6,6 @@ router.get("/", async (req, res) => {
   const response = await Produto.findAll({
     include: [{ model: Categoria, as: "categoria" }],
   });
-  console.log("aqui tambem");
   return res.json(response);
 });
 

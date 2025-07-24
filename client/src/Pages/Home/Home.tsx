@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import styles from "./style.module.scss";
 import Carousel from "../../Components/Carousel/Carousel";
 import Navbar from "../../Components/Navbar/Navbar";
-import { Produto } from "../../data/Produto";
+import { Produto } from "../../types/Produto";
 import { useNavigate } from "react-router-dom";
 
 const Home = () => {

@@ -1,6 +1,6 @@
 /* eslint-disable react-refresh/only-export-components */
 import { createContext, useEffect, useState } from "react";
-import { Produto } from "../data/Produto";
+import { Produto } from "../types/Produto";
 import axios from "axios";
 
 interface ProdutosContextData {
