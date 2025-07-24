@@ -1,8 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { Produto } from "../../types/Produto";
+import { Carrinho } from "../../types/Carrinho";
 
 interface CarrinhoState {
-  carrinho: Produto[];
+  carrinho: Carrinho[];
 }
 
 const initialState: CarrinhoState = {
