@@ -11,6 +11,7 @@ import { useDispatch } from "react-redux";
 import PaymentWay from "../../Components/Modal/PaymentWay/PaymentWay";
 import { addProduto } from "../../redux/cartReducer/cart-slice";
 import { toast, ToastContainer } from "react-toastify";
+import Cart from "../../Components/Modal/Carrinho/Cart";
 
 const Produto = () => {
   const { getProduct, product } = useContext(ProdutoContext);
@@ -24,6 +25,7 @@ const Produto = () => {
   const tamanhosRoupas = ["P", "M", "G", "GG", "XG"];
   const [paymentWayMd, setPaymentWayMd] = useState(false);
   const dispatch = useDispatch();
+  const [cartIsVisible, setCartIsVisible] = useState(false);
 
   useEffect(() => {
     if (id) {
@@ -34,7 +36,9 @@ const Produto = () => {
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!tamanhoRoupa || !tamanhoTenis || quantidade < 1) return;
+    if (!tamanhoRoupa || !tamanhoTenis || quantidade < 1) {
+      return toast("Todos os campos são obrigatórios", { type: "error" });
+    }
     dispatch(
       addProduto({
         nome: product.nome,
@@ -46,16 +50,13 @@ const Produto = () => {
         produto_img: product.img_principal,
       })
     );
-    toast("Produto adicionado ao carrinho", { type: "success" });
+    setCartIsVisible(true);
   };
 
   useEffect(() => {
     setActiveImage(product.img_principal);
   }, [product]);
 
-  useEffect(() => {
-    console.log(tamanhoRoupa);
-  }, [tamanhoRoupa]);
   return (
     <div>
       <ToastContainer />
@@ -66,6 +67,7 @@ const Produto = () => {
         />
       )}
       <Navbar />
+      {cartIsVisible && <Cart onClose={() => setCartIsVisible(false)} />}
       <div className={styles.produtoPageBody}>
         <div className={styles.produtoImagens} style={{ gridArea: "box1" }}>
           <div
@@ -100,12 +102,17 @@ const Produto = () => {
         </div>
         <div className={styles.produtoInfo} style={{ gridArea: "box2" }}>
           <div className={styles.produtoNome}>{product.nome}</div>
-          <div className={styles.precoBase}>
-            R${product.preco_base.toString().replace(".", ",")}
-          </div>
-          <div className={styles.precoPromocional}>
-            R${anuncio.preco.toString().replace(".", ",")}
-          </div>
+          {product.preco_base && (
+            <div className={styles.precoBase}>
+              R${product.preco_base.toString().replace(".", ",")}
+            </div>
+          )}
+          {anuncio.preco && (
+            <div className={styles.precoPromocional}>
+              R${anuncio.preco.toString().replace(".", ",")}
+            </div>
+          )}
+
           <div className={styles.precoParcelado}>
             <span>
               ou <strong>12x</strong> de{" "}
