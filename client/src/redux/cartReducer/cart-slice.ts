@@ -15,10 +15,7 @@ export const cartSlice = createSlice({
   reducers: {
     addProduto: (state, action) => {
       state.carrinho = [...state.carrinho, action.payload];
-      localStorage.setItem(
-        "produtos no carrinho",
-        JSON.stringify(state.carrinho)
-      );
+      localStorage.setItem("carrinho", JSON.stringify(state.carrinho));
     },
   },
 });
