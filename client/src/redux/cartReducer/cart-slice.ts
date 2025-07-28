@@ -33,7 +33,7 @@ export const cartSlice = createSlice({
         // Adiciona o novo produto com quantidade 1, se não existir
         state.carrinho = [
           ...state.carrinho,
-          { ...action.payload, quantidade: 1 },
+          { ...action.payload, quantidade: action.payload.quantidade },
         ];
       }
 

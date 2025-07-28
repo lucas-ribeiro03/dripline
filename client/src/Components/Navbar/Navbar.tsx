@@ -4,14 +4,24 @@ import { FaWhatsapp, FaTruck } from "react-icons/fa";
 import { IoPerson, IoBag } from "react-icons/io5";
 import Login from "../Modal/Login/Login";
 import logo from "../../assets/img/dripline.png";
+import { useSelector } from "react-redux";
+import { RootReducer } from "../../redux/root-reducer";
+import Cart from "../Modal/Carrinho/Cart";
 
 const Navbar = () => {
   const [loginModalIsVisible, setLoginModalIsVisible] = useState(false);
+  const [cartIsVisible, setCartIsVisible] = useState(false);
+
+  const { carrinho } = useSelector(
+    (rootReducer: RootReducer) => rootReducer.cartReducer
+  );
   return (
     <div>
       {loginModalIsVisible && (
         <Login onClose={() => setLoginModalIsVisible(false)} />
       )}
+
+      {cartIsVisible && <Cart onClose={() => setCartIsVisible(false)} />}
       <section className={styles.navbarSection}>
         <header className={styles.navbarHeader}>
           <a href="/">
@@ -48,9 +58,9 @@ const Navbar = () => {
             <IoPerson />
           </a>
 
-          <a href="" className={styles.cartIcon}>
+          <a className={styles.cartIcon} onClick={() => setCartIsVisible(true)}>
             <IoBag />
-            <span>0</span>
+            <span>{carrinho.length}</span>
           </a>
         </header>
         <nav className={styles.navbar}>

@@ -36,7 +36,11 @@ const Produto = () => {
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!tamanhoRoupa || !tamanhoTenis || quantidade < 1) {
+    if (
+      !tamanhoRoupa ||
+      (product.tipo_produto === "kit completo" && !tamanhoTenis) ||
+      quantidade < 1
+    ) {
       return toast("Todos os campos são obrigatórios", { type: "error" });
     }
     dispatch(
@@ -45,7 +49,7 @@ const Produto = () => {
         preco: anuncio.preco,
         tamanho_roupa: tamanhoRoupa,
         tamanho_tenis: tamanhoTenis,
-        quantidade,
+        quantidade: quantidade,
         produto_id: product.id,
         produto_img: product.img_principal,
       })

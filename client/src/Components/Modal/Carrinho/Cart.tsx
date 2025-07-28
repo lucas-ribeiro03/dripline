@@ -51,7 +51,7 @@ const Cart: React.FC<CartProps> = ({ onClose }) => {
                   className={styles.itemTamanhoCalcado}
                   style={{ gridArea: "box4" }}
                 >
-                  {item.tamanho_tenis}
+                  {item.tamanho_tenis ? item.tamanho_tenis : null}
                 </div>
                 <div className={styles.itemPreco} style={{ gridArea: "box5" }}>
                   R${" "}
@@ -79,20 +79,30 @@ const Cart: React.FC<CartProps> = ({ onClose }) => {
             ))}
           </div>
           <div className={styles.resume}>
-            <h3>Resumo do pedido</h3>
-            <span>
-              Total: R${" "}
-              {cartItems
-                .reduce(
-                  (acc, current: Carrinho) =>
-                    (acc = Number(current.preco) + Number(acc)),
-                  0
-                )
-                .toFixed(2)
-                .replace(".", ",")}
-            </span>
+            {carrinho.length > 0 ? (
+              <h3>Resumo do pedido</h3>
+            ) : (
+              <h3>Não há itens no carrinho</h3>
+            )}
+
+            {carrinho.length > 0 && (
+              <span>
+                Total: R${" "}
+                {cartItems
+                  .reduce(
+                    (acc, current: Carrinho) =>
+                      (acc = Number(current.preco) + Number(acc)),
+                    0
+                  )
+                  .toFixed(2)
+                  .replace(".", ",")}
+              </span>
+            )}
           </div>
-          <button className={styles.finish}>Finalizar Compra</button>
+          {carrinho.length > 0 && (
+            <button className={styles.finish}>Finalizar Compra</button>
+          )}
+
           <button className={styles.closeBtn}>
             <FaX onClick={onClose} />
           </button>
