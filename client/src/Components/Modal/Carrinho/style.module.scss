@@ -15,6 +15,7 @@
     position: relative;
     display: flex;
     flex-direction: column;
+    overflow-y: scroll;
 
     .productsOnCart {
       display: flex;
