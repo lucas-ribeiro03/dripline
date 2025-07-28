@@ -18,7 +18,10 @@ const Card: React.FC<CardProps> = ({ card, seeProduct }) => {
         </div>
         <div className={styles.cardPrice}>
           <span className={styles.promoPreco}>R$ 99,90 </span>
-          <span className={styles.precoBase}> R$ {card.preco_base}</span>
+          <span className={styles.precoBase}>
+            {" "}
+            R$ {card.preco_base.toString().replace(".", ",")}
+          </span>
         </div>
         <span className={styles.parcela}>
           ou 12x de {(99.9 / 12).toFixed(2).replace(".", ",")}

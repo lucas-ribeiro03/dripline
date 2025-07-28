@@ -99,12 +99,18 @@ const Produto = () => {
         </div>
         <div className={styles.produtoInfo} style={{ gridArea: "box2" }}>
           <div className={styles.produtoNome}>{product.nome}</div>
-          <div className={styles.precoBase}>R${product.preco_base}</div>
-          <div className={styles.precoPromocional}>R${anuncio.preco}</div>
+          <div className={styles.precoBase}>
+            R${product.preco_base.toString().replace(".", ",")}
+          </div>
+          <div className={styles.precoPromocional}>
+            R${anuncio.preco.toString().replace(".", ",")}
+          </div>
           <div className={styles.precoParcelado}>
             <span>
               ou <strong>12x</strong> de{" "}
-              <strong>R${(anuncio.preco / 12).toFixed(2)}</strong>
+              <strong>
+                R${(anuncio.preco / 12).toFixed(2).replace(".", ",")}
+              </strong>
             </span>
           </div>
           <div
