@@ -31,8 +31,8 @@ const Home = () => {
   return (
     <div>
       <Navbar />
-      <div className={styles.carousels}>
-        {categorias.map((categoria, i) => (
+      {categorias.map((categoria, i) => (
+        <div className={styles.carousels}>
           <Carousel
             key={i}
             title={categoria}
@@ -40,8 +40,8 @@ const Home = () => {
               navigate(`/produto/${localStorage.getItem("produto")}`)
             }
           />
-        ))}
-      </div>
+        </div>
+      ))}
     </div>
   );
 };
