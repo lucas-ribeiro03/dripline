@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import styles from "./style.module.scss";
-import { FaX } from "react-icons/fa6";
+import { FaX, FaTrash } from "react-icons/fa6";
 import { Carrinho } from "../../../types/Carrinho";
 
 interface CartProps {
@@ -62,6 +62,10 @@ const Cart: React.FC<CartProps> = ({ onClose }) => {
                 >
                   Quantidade: {item.quantidade}
                 </div>
+                <FaTrash
+                  style={{ gridArea: "box7", color: "red", cursor: "pointer" }}
+                  title="Excluir"
+                />
               </div>
             ))}
           </div>
