@@ -6,7 +6,7 @@ interface CarrinhoState {
 }
 
 const initialState: CarrinhoState = {
-  carrinho: JSON.parse(localStorage.getItem("produtos no carrinho") || "[]"),
+  carrinho: JSON.parse(localStorage.getItem("carrinho") || "[]"),
 };
 
 export const cartSlice = createSlice({
@@ -14,10 +14,40 @@ export const cartSlice = createSlice({
   name: "carrinho",
   reducers: {
     addProduto: (state, action) => {
-      state.carrinho = [...state.carrinho, action.payload];
+      const produtoExistente = state.carrinho.find(
+        (item) => item.produto_id === action.payload.produto_id
+      );
+
+      if (produtoExistente) {
+        // Atualiza a quantidade do item existente
+        state.carrinho = state.carrinho.map((item) => {
+          if (item.produto_id === action.payload.produto_id) {
+            return {
+              ...item,
+              quantidade: item.quantidade + 1,
+            };
+          }
+          return item;
+        });
+      } else {
+        // Adiciona o novo produto com quantidade 1, se não existir
+        state.carrinho = [
+          ...state.carrinho,
+          { ...action.payload, quantidade: 1 },
+        ];
+      }
+
+      localStorage.setItem("carrinho", JSON.stringify(state.carrinho));
+    },
+
+    removerProduto: (state, action) => {
+      state.carrinho = state.carrinho.filter(
+        (produto) => produto.produto_id !== action.payload
+      );
+
       localStorage.setItem("carrinho", JSON.stringify(state.carrinho));
     },
   },
 });
 
-export const { addProduto } = cartSlice.actions;
+export const { addProduto, removerProduto } = cartSlice.actions;

@@ -2,6 +2,9 @@ import { useEffect, useState } from "react";
 import styles from "./style.module.scss";
 import { FaX, FaTrash } from "react-icons/fa6";
 import { Carrinho } from "../../../types/Carrinho";
+import { useDispatch, useSelector } from "react-redux";
+import { removerProduto } from "../../../redux/cartReducer/cart-slice";
+import { RootReducer } from "../../../redux/root-reducer";
 
 interface CartProps {
   onClose: () => void;
@@ -9,10 +12,13 @@ interface CartProps {
 
 const Cart: React.FC<CartProps> = ({ onClose }) => {
   const [cartItems, setCartItems] = useState<Carrinho[]>([]);
+  const { carrinho } = useSelector(
+    (rootReducer: RootReducer) => rootReducer.cartReducer
+  );
   const getItemsOnCart = () => {
-    const items = JSON.parse(localStorage.getItem("carrinho") || "[]");
-    setCartItems(items);
+    setCartItems(carrinho);
   };
+  const dispatch = useDispatch();
 
   useEffect(() => {
     getItemsOnCart();
@@ -65,6 +71,9 @@ const Cart: React.FC<CartProps> = ({ onClose }) => {
                 <FaTrash
                   style={{ gridArea: "box7", color: "red", cursor: "pointer" }}
                   title="Excluir"
+                  onClick={() => {
+                    dispatch(removerProduto(item.produto_id));
+                  }}
                 />
               </div>
             ))}
