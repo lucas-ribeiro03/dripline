@@ -5,4 +5,5 @@ export interface Carrinho {
   tamanho_tenis?: number;
   quantidade: number;
   produto_id: number;
+  produto_img: string;
 }

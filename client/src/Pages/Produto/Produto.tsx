@@ -43,6 +43,7 @@ const Produto = () => {
         tamanho_tenis: tamanhoTenis,
         quantidade,
         produto_id: product.id,
+        produto_img: product.img_principal,
       })
     );
     toast("Produto adicionado ao carrinho", { type: "success" });
