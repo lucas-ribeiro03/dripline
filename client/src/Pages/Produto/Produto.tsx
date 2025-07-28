@@ -7,6 +7,10 @@ import { AnuncioContext } from "../../contexts/AnuncioContext";
 import { FaPlus, FaMinus } from "react-icons/fa";
 import { MdOutlinePayment } from "react-icons/md";
 import Navbar from "../../Components/Navbar/Navbar";
+import { useDispatch } from "react-redux";
+import PaymentWay from "../../Components/Modal/PaymentWay/PaymentWay";
+import { addProduto } from "../../redux/cartReducer/cart-slice";
+import { toast, ToastContainer } from "react-toastify";
 
 const Produto = () => {
   const { getProduct, product } = useContext(ProdutoContext);
@@ -14,8 +18,12 @@ const Produto = () => {
   const { id } = useParams();
   const [activeImage, setActiveImage] = useState("");
   const [quantidade, setQuantidade] = useState(1);
+  const [tamanhoTenis, setTamanhoTenis] = useState(0);
+  const [tamanhoRoupa, setTamanhoRoupa] = useState("");
   const tamanhosTenis = [37, 38, 39, 40, 41, 42, 43, 44, 45];
   const tamanhosRoupas = ["P", "M", "G", "GG", "XG"];
+  const [paymentWayMd, setPaymentWayMd] = useState(false);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (id) {
@@ -24,11 +32,38 @@ const Produto = () => {
     }
   }, []);
 
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (!tamanhoRoupa || !tamanhoTenis || quantidade < 1) return;
+    dispatch(
+      addProduto({
+        nome: product.nome,
+        preco: anuncio.preco,
+        tamanho_roupa: tamanhoRoupa,
+        tamanho_tenis: tamanhoTenis,
+        quantidade,
+        produto_id: product.id,
+      })
+    );
+    toast("Produto adicionado ao carrinho", { type: "success" });
+  };
+
   useEffect(() => {
     setActiveImage(product.img_principal);
   }, [product]);
+
+  useEffect(() => {
+    console.log(tamanhoRoupa);
+  }, [tamanhoRoupa]);
   return (
     <div>
+      <ToastContainer />
+      {paymentWayMd && (
+        <PaymentWay
+          onClose={() => setPaymentWayMd(false)}
+          price={anuncio.preco}
+        />
+      )}
       <Navbar />
       <div className={styles.produtoPageBody}>
         <div className={styles.produtoImagens} style={{ gridArea: "box1" }}>
@@ -72,7 +107,10 @@ const Produto = () => {
               <strong>R${(anuncio.preco / 12).toFixed(2)}</strong>
             </span>
           </div>
-          <div className={styles.formaPgto}>
+          <div
+            className={styles.formaPgto}
+            onClick={() => setPaymentWayMd(true)}
+          >
             <span>
               <MdOutlinePayment /> Formas de pagamento
             </span>
@@ -81,7 +119,22 @@ const Produto = () => {
             <p>Tamanho: </p>
             <div className={styles.tamanhos}>
               {tamanhosRoupas.map((tamanho) => (
-                <span key={tamanho}>{tamanho}</span>
+                <span
+                  style={
+                    tamanho === tamanhoRoupa
+                      ? { background: "#ccc", border: "2px solid black" }
+                      : { background: "transparent" }
+                  }
+                  onClick={() => {
+                    if (tamanho === tamanhoRoupa) {
+                      return setTamanhoRoupa("");
+                    }
+                    setTamanhoRoupa(tamanho);
+                  }}
+                  key={tamanho}
+                >
+                  {tamanho}
+                </span>
               ))}
             </div>
           </div>
@@ -90,12 +143,27 @@ const Produto = () => {
               <p>Tamanho Calçado:</p>
               <div className={styles.tamanhos}>
                 {tamanhosTenis.map((tamanho) => (
-                  <span key={tamanho}>{tamanho}</span>
+                  <span
+                    onClick={() => {
+                      if (tamanho === tamanhoTenis) {
+                        return setTamanhoTenis(0);
+                      }
+                      setTamanhoTenis(tamanho);
+                    }}
+                    style={
+                      tamanho === tamanhoTenis
+                        ? { background: "#ccc", border: "2px solid black" }
+                        : { background: "transparent" }
+                    }
+                    key={tamanho}
+                  >
+                    {tamanho}
+                  </span>
                 ))}
               </div>
             </div>
           )}
-          <form className={styles.quantityForm}>
+          <form onSubmit={(e) => onSubmit(e)} className={styles.quantityForm}>
             <div className={styles.inputBox}>
               <FaMinus
                 onClick={() =>
