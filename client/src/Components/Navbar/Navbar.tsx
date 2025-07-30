@@ -36,9 +36,13 @@ const Navbar = () => {
               type="text"
               placeholder="Pesquisar..."
             />
-            {search && <SearchResults query={search} />}
             <button>Buscar</button>
           </form>
+          {search && (
+            <div className={styles.searchResults}>
+              <SearchResults query={search} />
+            </div>
+          )}
 
           <span className={styles.whatsappSupport}>
             <a href="">
