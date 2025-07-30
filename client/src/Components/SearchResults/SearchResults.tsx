@@ -7,12 +7,21 @@ interface SearchResultsProps {
   query: string;
 }
 
+interface Results {
+  produto: {
+    nome: string;
+    img_principal: string;
+  };
+
+  preco: string;
+}
+
 const SearchResults: React.FC<SearchResultsProps> = ({ query }) => {
-  const [results, setResults] = useState<string[]>([]);
+  const [results, setResults] = useState<Results[]>([]);
 
   const getResults = async (search: string) => {
     const response = await axios.get(`http://localhost:3001/busca/${search}`);
-    console.log(response.data);
+
     setResults(response.data);
   };
 
@@ -30,7 +39,30 @@ const SearchResults: React.FC<SearchResultsProps> = ({ query }) => {
   }, [query]);
   return (
     <div>
-      <div className={styles.resultsContainer}></div>
+      <div className={styles.resultsContainer}>
+        {results.map((result, i) =>
+          i > 5 ? null : (
+            <div className={styles.result} key={i}>
+              <div className={styles.img}>
+                <img
+                  src={`http://${result.produto.img_principal}`}
+                  width={60}
+                  alt=""
+                />
+              </div>
+
+              <div className={styles.nome}>{result.produto.nome}</div>
+
+              <div className={styles.preco}>
+                R${result.preco.toString().replace(".", ",")}
+              </div>
+            </div>
+          )
+        )}
+        {results.length > 5 ? (
+          <span style={{ textAlign: "center" }}>Mostrar mais...</span>
+        ) : null}
+      </div>
     </div>
   );
 };

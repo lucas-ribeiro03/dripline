@@ -1,0 +1,45 @@
+.resultsContainer {
+  width: fit-content;
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  margin-left: 1.3rem;
+  z-index: 9999999;
+  overflow-y: scroll;
+  max-height: 270px;
+  border: 1px solid #c1c1c1;
+
+  .result {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 0.8rem;
+    max-width: 360px;
+    width: 100%;
+    align-items: center;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    transition: 0.25s;
+
+    &:hover {
+      background: #cccc;
+    }
+
+    img {
+      border-radius: 10px;
+      margin-right: 10px;
+    }
+
+    .nome {
+      flex: 1;
+      min-width: 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .preco {
+      margin-left: 10px;
+    }
+  }
+}
