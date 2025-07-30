@@ -7,10 +7,12 @@ import logo from "../../assets/img/dripline.png";
 import { useSelector } from "react-redux";
 import { RootReducer } from "../../redux/root-reducer";
 import Cart from "../Modal/Carrinho/Cart";
+import SearchResults from "../SearchResults/SearchResults";
 
 const Navbar = () => {
   const [loginModalIsVisible, setLoginModalIsVisible] = useState(false);
   const [cartIsVisible, setCartIsVisible] = useState(false);
+  const [search, setSearch] = useState("");
 
   const { carrinho } = useSelector(
     (rootReducer: RootReducer) => rootReducer.cartReducer
@@ -28,7 +30,13 @@ const Navbar = () => {
             <img src={logo} height={150} alt="logo" />
           </a>
           <form className={styles.searchForm}>
-            <input type="text" placeholder="Pesquisar..." />
+            <input
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              type="text"
+              placeholder="Pesquisar..."
+            />
+            {search && <SearchResults query={search} />}
             <button>Buscar</button>
           </form>
 
