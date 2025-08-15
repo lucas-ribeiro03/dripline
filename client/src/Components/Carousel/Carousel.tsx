@@ -131,7 +131,6 @@ const Carousel: React.FC<CarouselProps> = ({ title, onProductClick }) => {
                             JSON.stringify(product.id)
                           );
                           onProductClick();
-                          console.log("clicou");
                         }}
                       />
                     </div>
