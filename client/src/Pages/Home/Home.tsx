@@ -30,7 +30,11 @@ const Home = () => {
   }, []);
   return (
     <div>
-      <Navbar />
+      <Navbar
+        onProductClick={() => {
+          navigate(`/produto/${localStorage.getItem("produto")}`);
+        }}
+      />
       {categorias.map((categoria, i) => (
         <div className={styles.carousels}>
           <Carousel
