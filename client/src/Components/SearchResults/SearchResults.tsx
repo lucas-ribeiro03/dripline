@@ -1,10 +1,12 @@
 import { useCallback, useEffect, useState } from "react";
 import styles from "./style.module.scss";
-import debounce from "lodash.debounce";
+import debounce from "lodash/debounce";
+
 import axios from "axios";
 
 interface SearchResultsProps {
   query: string;
+  seeProduct: () => void;
 }
 
 interface Results {
@@ -14,9 +16,10 @@ interface Results {
   };
 
   preco: string;
+  produto_id: number;
 }
 
-const SearchResults: React.FC<SearchResultsProps> = ({ query }) => {
+const SearchResults: React.FC<SearchResultsProps> = ({ query, seeProduct }) => {
   const [results, setResults] = useState<Results[]>([]);
 
   const getResults = async (search: string) => {
@@ -42,7 +45,17 @@ const SearchResults: React.FC<SearchResultsProps> = ({ query }) => {
       <div className={styles.resultsContainer}>
         {results.map((result, i) =>
           i > 5 ? null : (
-            <div className={styles.result} key={i}>
+            <div
+              className={styles.result}
+              onClick={() => {
+                localStorage.setItem(
+                  "produto",
+                  JSON.stringify(result.produto_id)
+                );
+                seeProduct();
+              }}
+              key={i}
+            >
               <div className={styles.img}>
                 <img
                   src={`http://${result.produto.img_principal}`}
