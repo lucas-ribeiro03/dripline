@@ -9,7 +9,11 @@ import { RootReducer } from "../../redux/root-reducer";
 import Cart from "../Modal/Carrinho/Cart";
 import SearchResults from "../SearchResults/SearchResults";
 
-const Navbar = () => {
+interface NavbarProps {
+  onProductClick: () => void;
+}
+
+const Navbar: React.FC<NavbarProps> = ({ onProductClick }) => {
   const [loginModalIsVisible, setLoginModalIsVisible] = useState(false);
   const [cartIsVisible, setCartIsVisible] = useState(false);
   const [search, setSearch] = useState("");
@@ -40,7 +44,7 @@ const Navbar = () => {
           </form>
           {search && (
             <div className={styles.searchResults}>
-              <SearchResults query={search} />
+              <SearchResults query={search} seeProduct={onProductClick} />
             </div>
           )}
 
